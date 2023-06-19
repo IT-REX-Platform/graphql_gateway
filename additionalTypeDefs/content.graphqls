@@ -1,0 +1,19 @@
+extend type Chapter {
+  contents: [Content!]! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "contentsByChapterIds",
+    keyField: "id",
+    keysArg: "chapterIds"
+  )
+}
+
+extend type MediaContent {
+  mediaRecords: [MediaRecord!]! @resolveTo(
+    sourceName: "MediaService",
+    sourceTypeName: "Query",
+    sourceFieldName: "mediaRecordsByContentIds",
+    keyField: "id",
+    keysArg: "contentIds"
+  )
+}
