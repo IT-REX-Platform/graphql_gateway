@@ -17,3 +17,13 @@ extend type MediaContent {
     keysArg: "contentIds"
   )
 }
+
+extend type FlashcardSetAssessment {
+  flashcardSet: FlashcardSet! @resolveTo(
+    sourceName: "FlashcardService",
+    sourceTypeName: "Query",
+    sourceFieldName: "flashcardSetsByAssessmentIds",
+    keyField: "id",
+    keysArg: "assessmentIds"
+  )
+}
