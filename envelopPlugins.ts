@@ -1,9 +1,6 @@
 import { PluginOrDisabledPlugin } from "@envelop/core";
 import { ResolveUserFn, useGenericAuth } from "@envelop/generic-auth";
 import * as jose from "jose";
-const keycloakHost = "host.docker.internal";
-const keycloakPort = "9009";
-const realmName = "GITS";
 
 type UserType = {
   id: string;
@@ -14,7 +11,7 @@ type UserType = {
 
 const JWKS = jose.createRemoteJWKSet(
   new URL(
-    `http://${keycloakHost}:${keycloakPort}/realms/${realmName}/protocol/openid-connect/certs`
+    process.env.JWKS_URL ?? `http://host.docker.internal:9009/realms/GITS/protocol/openid-connect/certs`
   )
 );
 
