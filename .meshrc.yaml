@@ -6,10 +6,14 @@ sources:
     handler:
       graphql:
         endpoint: "{env.COURSE_SERVICE_URL}"
+        operationHeaders:
+          CurrentUser: "{context.currentUserJson}"
   - name: ContentService
     handler:
       graphql:
         endpoint: "{env.CONTENT_SERVICE_URL}"
+        operationHeaders:
+          CurrentUser: "{context.currentUserJson}"
   - name: MediaService
     handler:
       graphql:
@@ -20,6 +24,8 @@ sources:
     handler:
       graphql:
         endpoint: "{env.FLASHCARD_SERVICE_URL}"
+        operationHeaders:
+          CurrentUser: "{context.currentUserJson}"        
 additionalTypeDefs:
   - "./additionalTypeDefs/content.graphqls"
 additionalEnvelopPlugins: "./envelopPlugins"
