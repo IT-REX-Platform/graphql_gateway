@@ -25,7 +25,7 @@ sources:
       graphql:
         endpoint: "{env.FLASHCARD_SERVICE_URL}"
         operationHeaders:
-          CurrentUser: "{context.currentUserJson}"        
+          CurrentUser: "{context.currentUserJson}"    
 additionalTypeDefs:
   - "./additionalTypeDefs/content.graphqls"
 additionalEnvelopPlugins: "./envelopPlugins"
