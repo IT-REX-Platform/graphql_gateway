@@ -1,3 +1,15 @@
+extend type Course {
+  rewardScores: RewardScores! @resolveTo(
+    sourceName: "RewardService",
+    sourceTypeName: "Query",
+    sourceFieldName: "userCourseRewardScores",
+    requiredSelectionSet: "{ id }",
+    sourceArgs: {
+      courseId: "{root.id}"
+    }
+  )
+}
+
 extend type Chapter {
   contents: [Content!]! @resolveTo(
     sourceName: "ContentService",
@@ -25,5 +37,17 @@ extend type FlashcardSetAssessment {
     sourceFieldName: "flashcardSetsByAssessmentIds",
     keyField: "id",
     keysArg: "assessmentIds"
+  )
+}
+
+extend type RewardLogItem {
+  associatedContents: [Content!]! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "contentsByIds",
+    requiredSelectionSet: "{ associatedContentIds }",
+    sourceArgs: {
+      ids: "{root.associatedContentIds}"
+    }
   )
 }

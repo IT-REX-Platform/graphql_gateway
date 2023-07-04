@@ -26,6 +26,12 @@ sources:
         endpoint: "{env.FLASHCARD_SERVICE_URL}"
         operationHeaders:
           CurrentUser: "{context.currentUserJson}"    
+  - name: RewardService
+    handler:
+      graphql:
+        endpoint: "{env.REWARD_SERVICE_URL}"
+        operationHeaders:
+          CurrentUser: "{context.currentUserJson}"
 additionalTypeDefs:
   - "./additionalTypeDefs/content.graphqls"
 additionalEnvelopPlugins: "./envelopPlugins"
