@@ -23,7 +23,7 @@ const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
 
   try {
     // get user information from request headers
-    const authHeader = context.req.headers.authorization.replace("Bearer ", "");
+    const authHeader = context.request.headers.get("authorization").replace("Bearer ", "");
 
     const { payload, protectedHeader } = await jose.jwtVerify(
       authHeader,
