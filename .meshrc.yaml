@@ -32,6 +32,17 @@ sources:
         endpoint: "{env.REWARD_SERVICE_URL}"
         operationHeaders:
           CurrentUser: "{context.currentUserJson}"
+  - name: UserService
+    handler:
+      graphql:
+        endpoint: "{env.USER_SERVICE_URL}"
+        operationHeaders:
+          CurrentUser: "{context.currentUserJson}"
 additionalTypeDefs:
+  - "./additionalTypeDefs/course.graphqls"
   - "./additionalTypeDefs/content.graphqls"
+  - "./additionalTypeDefs/rewards.graphqls"
+  - "./additionalTypeDefs/user.graphqls"
+additionalResolvers:
+  - "./additionalResolvers/user.ts"
 additionalEnvelopPlugins: "./envelopPlugins"

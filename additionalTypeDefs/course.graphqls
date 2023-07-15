@@ -1,0 +1,30 @@
+extend type Course {
+  rewardScores: RewardScores! @resolveTo(
+    sourceName: "RewardService",
+    sourceTypeName: "Query",
+    sourceFieldName: "userCourseRewardScores",
+    requiredSelectionSet: "{ id }",
+    sourceArgs: {
+      courseId: "{root.id}"
+    }
+  )
+  scoreboard: [ScoreboardItem!]! @resolveTo(
+    sourceName: "RewardService",
+    sourceTypeName: "Query",
+    sourceFieldName: "scoreboard",
+    requiredSelectionSet: "{ id }",
+    sourceArgs: {
+      courseId: "{root.id}"
+    }
+  )
+}
+
+extend type Chapter {
+  contents: [Content!]! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "contentsByChapterIds",
+    keyField: "id",
+    keysArg: "chapterIds"
+  )
+}

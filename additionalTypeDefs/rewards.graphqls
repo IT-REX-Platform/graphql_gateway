@@ -1,0 +1,9 @@
+extend type ScoreboardItem {
+    user: PublicUserInfo! @resolveTo(
+        sourceName: "UserService",
+        sourceTypeName: "Query",
+        sourceFieldName: "publicUserInfoBatched",
+        keyField: "userId",
+        keysArg: "ids"
+    )
+}

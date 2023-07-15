@@ -19,3 +19,4 @@ services:
       MEDIA_SERVICE_URL: http://host.docker.internal:3001/graphql
       FLASHCARD_SERVICE_URL: http://host.docker.internal:6001/graphql
       REWARD_SERVICE_URL: http://host.docker.internal:7001/graphql
+      USER_SERVICE_URL: http://host.docker.internal:5001/graphql
