@@ -7,3 +7,13 @@ extend type ScoreboardItem {
         keysArg: "ids"
     )
 }
+
+extend type RewardLogItem {
+  associatedContents: [Content!]! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "contentsByIds",
+    keyField: "associatedContentIds",
+    keysArg: "ids"
+  )
+}

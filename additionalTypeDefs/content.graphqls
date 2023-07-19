@@ -17,15 +17,3 @@ extend type FlashcardSetAssessment {
     keysArg: "assessmentIds"
   )
 }
-
-extend type RewardLogItem {
-  associatedContents: [Content!]! @resolveTo(
-    sourceName: "ContentService",
-    sourceTypeName: "Query",
-    sourceFieldName: "contentsByIds",
-    requiredSelectionSet: "{ associatedContentIds }",
-    sourceArgs: {
-      ids: "{root.associatedContentIds}"
-    }
-  )
-}
