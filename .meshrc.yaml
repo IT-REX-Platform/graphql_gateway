@@ -45,4 +45,5 @@ additionalTypeDefs:
   - "./additionalTypeDefs/user.graphqls"
 additionalResolvers:
   - "./additionalResolvers/user.ts"
+  - "./additionalResolvers/content.ts"
 additionalEnvelopPlugins: "./envelopPlugins"

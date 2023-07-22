@@ -17,3 +17,10 @@ extend type FlashcardSetAssessment {
     keysArg: "assessmentIds"
   )
 }
+
+extend type Mutation {
+  """
+  Creates a new media content and links the given media records to it.
+  """
+  createMediaContentAndLinkRecords(contentInput: CreateMediaContentInput!, mediaRecordIds: [UUID!]!) # resolved in content.ts
+}
