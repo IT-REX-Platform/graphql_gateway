@@ -9,11 +9,11 @@ extend type ScoreboardItem {
 }
 
 extend type RewardLogItem {
-  associatedContents: [Content!]! @resolveTo(
-    sourceName: "ContentService",
-    sourceTypeName: "Query",
-    sourceFieldName: "contentsByIds",
-    keyField: "associatedContentIds",
-    keysArg: "ids"
+  associatedContents: [Content]! @resolveTo(
+      sourceName: "ContentService",
+      sourceTypeName: "Query",
+      sourceFieldName: "findContentsByIds",
+      keyField: "associatedContentIds",
+      keysArg: "ids"
   )
 }
