@@ -3,9 +3,10 @@ import { Resolvers } from "../.mesh";
 const resolvers: Resolvers = {
     Mutation: {
         createMediaContentAndLinkRecords: {
-            resolve(root, _args, context, info) {
+            async resolve(root, _args, context, info) {
+                console.log(context.ContentService.Mutation);
                 // create the content object using the createMediaContent query of the content service
-                let content = context.Query.createMediaContent({
+                let content = await context.ContentService.Mutation.createMediaContent({
                     root,
                     args: {
                         input: _args.contentInput
@@ -15,7 +16,15 @@ const resolvers: Resolvers = {
                 });
 
                 // link the created content to the passed media records
-                context.Query.linkMediaRecordsWithContent(content.id, _args.mediaRecordIds)
+                await context.MediaService.Mutation.linkMediaRecordsWithContent({
+                    root,
+                    args: {
+                        contentId: content.id,
+                        mediaRecordIds: _args.mediaRecordIds
+                    },
+                    context,
+                    info
+                });
 
                 return content;
             }
