@@ -4,7 +4,6 @@ const resolvers: Resolvers = {
     Mutation: {
         createMediaContentAndLinkRecords: {
             async resolve(root, _args, context, info) {
-                console.log(context.ContentService.Mutation);
                 // create the content object using the createMediaContent query of the content service
                 let content = await context.ContentService.Mutation.createMediaContent({
                     root,
