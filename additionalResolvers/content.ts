@@ -1,4 +1,4 @@
-import { Resolvers } from "../.mesh";
+import {Resolvers} from "../.mesh";
 
 const resolvers: Resolvers = {
     Mutation: {
@@ -23,6 +23,28 @@ const resolvers: Resolvers = {
                     },
                     context,
                     info
+                });
+
+                return content;
+            }
+        },
+        createQuizContent: {
+            async resolve(root, _args, context, info) {
+                let content = await context.ContentService.Mutation.createAssessment({
+                    root,
+                    args: {
+                        input: _args.assessmentInput
+                    },
+                    context,
+                    info
+                });
+
+                await content.QuizService.Mutation.createQuiz({
+                    root,
+                    args: {
+                        assessmentId: content.id,
+                        input: _args.quizInput
+                    }
                 });
 
                 return content;

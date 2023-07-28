@@ -38,6 +38,12 @@ sources:
         endpoint: "{env.USER_SERVICE_URL}"
         operationHeaders:
           CurrentUser: "{context.currentUserJson}"
+  - name: QuizService
+    handler:
+      graphql:
+        endpoint: "{env.QUIZ_SERVICE_URL}"
+        operationHeaders:
+          CurrentUser: "{context.currentUserJson}"
 additionalTypeDefs:
   - "./additionalTypeDefs/course.graphqls"
   - "./additionalTypeDefs/content.graphqls"

@@ -18,9 +18,28 @@ extend type FlashcardSetAssessment {
   )
 }
 
+extend type QuizAssessment {
+  """
+  The quiz of the assessment.
+  If this is null the system is in an inconsistent state and the assessment should be deleted.
+  """
+  quiz: Quiz @resolveTo(
+    sourceName: "QuizService",
+    sourceTypeName: "Query",
+    sourceFieldName: "quizzesByAssessmentIds",
+    keyField: "id",
+    keysArg: "assessmentIds"
+  )
+}
+
 extend type Mutation {
   """
   Creates a new media content and links the given media records to it.
   """
   createMediaContentAndLinkRecords(contentInput: CreateMediaContentInput!, mediaRecordIds: [UUID!]!): MediaContent! # resolved in content.ts
+
+  """
+  Creates a new quiz assessment and links the given quiz to it.
+  """
+  createQuizContent(assessmentInput: CreateAssessmentInput!, quizInput: CreateQuizInput!): QuizAssessment! # resolved in content.ts
 }
