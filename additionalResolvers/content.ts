@@ -28,7 +28,7 @@ const resolvers: Resolvers = {
                 return content;
             }
         },
-        createQuizContent: {
+        createQuizAssessment: {
             async resolve(root, _args, context, info) {
                 let content = await context.ContentService.Mutation.createAssessment({
                     root,
