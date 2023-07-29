@@ -41,5 +41,5 @@ extend type Mutation {
   """
   Creates a new quiz assessment and links the given quiz to it.
   """
-  createQuizContent(assessmentInput: CreateAssessmentInput!, quizInput: CreateQuizInput!): QuizAssessment! # resolved in content.ts
+  createQuizAssessment(assessmentInput: CreateAssessmentInput!, quizInput: CreateQuizInput!): QuizAssessment! # resolved in content.ts
 }
