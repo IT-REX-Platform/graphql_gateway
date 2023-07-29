@@ -7,6 +7,7 @@ type UserType = {
   userName: string;
   firstName: string;
   lastName: string;
+  authToken: string;
 };
 
 const JWKS = jose.createRemoteJWKSet(
@@ -35,7 +36,8 @@ const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
       id: payload.sub,
       userName: payload.preferred_username,
       firstName: payload.given_name,
-      lastName: payload.family_name
+      lastName: payload.family_name,
+      authToken: authHeader
     };
 
     context.currentUserJson = JSON.stringify(user);
