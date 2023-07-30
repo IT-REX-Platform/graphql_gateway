@@ -1,5 +1,5 @@
-import { PluginOrDisabledPlugin } from "@envelop/core";
-import { ResolveUserFn, useGenericAuth } from "@envelop/generic-auth";
+import {PluginOrDisabledPlugin} from "@envelop/core";
+import {ResolveUserFn, useGenericAuth} from "@envelop/generic-auth";
 import * as jose from "jose";
 
 type UserType = {
@@ -24,13 +24,10 @@ const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
 
   try {
     // get user information from request headers
-    const authHeader = context.request.headers.get("authorization").replace("Bearer ", "");
+    const headers = retrieveHeadersSafe(context);
+    let authHeader = retrieveAuthHeaderSafe(headers);
 
-    const { payload, protectedHeader } = await jose.jwtVerify(
-      authHeader,
-      JWKS,
-      {}
-    );
+    authHeader = authHeader.replace("Bearer ", "");
 
     let user: UserType = {
       id: payload.sub,
@@ -57,5 +54,29 @@ const plugins: PluginOrDisabledPlugin = [
     mode: "protect-all",
   }),
 ];
+
+function retrieveHeadersSafe(context: any) {
+  let headers = context.request.headers;
+  if (!headers) {
+    headers = context.req.headers;
+  }
+  if (!headers) {
+    console.log("No headers found, context is: ", context);
+    throw new Error("No headers found");
+  }
+  return headers;
+}
+
+function retrieveAuthHeaderSafe(headers: any) {
+  let authHeader = headers.get("authorization");
+  if (!authHeader) {
+    authHeader = headers.authorization;
+  }
+  if (!authHeader) {
+    console.log("No authorization header found, headers are: ", headers);
+    throw new Error("No authorization header found");
+  }
+  return authHeader;
+}
 
 export default plugins;
