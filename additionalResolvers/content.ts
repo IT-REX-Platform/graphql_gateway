@@ -44,7 +44,9 @@ const resolvers: Resolvers = {
                     args: {
                         assessmentId: content.id,
                         input: _args.quizInput
-                    }
+                    },
+                    context,
+                    info
                 });
 
                 return content;
