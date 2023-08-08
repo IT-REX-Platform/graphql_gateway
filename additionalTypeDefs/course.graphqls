@@ -27,4 +27,11 @@ extend type Chapter {
     keyField: "id",
     keysArg: "chapterIds"
   )
+  sections: [Section!]! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "sectionsByChapterIds",
+    keyField: "id",
+    keysArg: "chapterIds"
+  )
 }

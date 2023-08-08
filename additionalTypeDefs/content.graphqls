@@ -1,3 +1,13 @@
+extend type Section {
+  chapter: Chapter! @resolveTo(
+    sourceName: "CourseService",
+    sourceTypeName: "Query",
+    sourceFieldName: "chaptersByIds",
+    keyField: "chapterId",
+    keysArg: "ids"
+  )
+}
+
 extend type MediaContent {
   mediaRecords: [MediaRecord!]! @resolveTo(
     sourceName: "MediaService",
