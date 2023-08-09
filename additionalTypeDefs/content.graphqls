@@ -1,4 +1,7 @@
 extend type MediaContent {
+  """
+  The media records linked to this media content.
+  """
   mediaRecords: [MediaRecord!]! @resolveTo(
     sourceName: "MediaService",
     sourceTypeName: "Query",
@@ -9,6 +12,9 @@ extend type MediaContent {
 }
 
 extend type FlashcardSetAssessment {
+  """
+  The FlashcardSet of the assessment.
+  """
   flashcardSet: FlashcardSet! @resolveTo(
     sourceName: "FlashcardService",
     sourceTypeName: "Query",
@@ -19,6 +25,9 @@ extend type FlashcardSetAssessment {
 }
 
 extend type FlashcardSet {
+  """
+  The assessment this FlashcardSet belongs to.
+  """
   assessment: FlashcardSetAssessment @resolveTo(
     sourceName: "ContentService",
     sourceTypeName: "Query",
@@ -43,6 +52,9 @@ extend type QuizAssessment {
 }
 
 extend type Quiz {
+  """
+  The assessment this quiz belongs to.
+  """
   assessment: QuizAssessment @resolveTo(
     sourceName: "ContentService",
     sourceTypeName: "Query",
