@@ -18,6 +18,16 @@ extend type FlashcardSetAssessment {
   )
 }
 
+extend type FlashcardSet {
+  assessment: FlashcardSetAssessment @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "contentsByIds",
+    keyField: "assessmentId",
+    keysArg: "ids"
+  )
+}
+
 extend type QuizAssessment {
   """
   The quiz of the assessment.
@@ -29,6 +39,16 @@ extend type QuizAssessment {
     sourceFieldName: "findQuizzesByAssessmentIds",
     keyField: "id",
     keysArg: "assessmentIds"
+  )
+}
+
+extend type Quiz {
+  assessment: QuizAssessment @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "contentsByIds",
+    keyField: "assessmentId",
+    keysArg: "ids"
   )
 }
 
