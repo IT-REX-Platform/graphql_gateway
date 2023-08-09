@@ -20,7 +20,7 @@ extend type Course {
 }
 
 extend type Chapter {
-  contents: [Content!]! @resolveTo(
+  contents: [Content!]! @skipInternalAuth @resolveTo(
     sourceName: "ContentService",
     sourceTypeName: "Query",
     sourceFieldName: "contentsByChapterIds",

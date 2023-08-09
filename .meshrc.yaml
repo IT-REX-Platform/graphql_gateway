@@ -45,6 +45,7 @@ sources:
         operationHeaders:
           CurrentUser: "{context.currentUserJson}"
 additionalTypeDefs:
+  - "./additionalTypeDefs/directives.graphqls"
   - "./additionalTypeDefs/course.graphqls"
   - "./additionalTypeDefs/content.graphqls"
   - "./additionalTypeDefs/rewards.graphqls"
@@ -53,3 +54,4 @@ additionalResolvers:
   - "./additionalResolvers/user.ts"
   - "./additionalResolvers/content.ts"
 additionalEnvelopPlugins: "./envelopPlugins"
+customFetch: "./customFetch.ts"

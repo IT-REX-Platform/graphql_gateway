@@ -1,5 +1,6 @@
-import {PluginOrDisabledPlugin} from "@envelop/core";
-import {ResolveUserFn, useGenericAuth} from "@envelop/generic-auth";
+import { PluginOrDisabledPlugin } from "@envelop/core";
+import { ResolveUserFn, useGenericAuth } from "@envelop/generic-auth";
+import { useAuthorizationDirectives } from "./plugins/authorizationDirectivesPlugin";
 import * as jose from "jose";
 
 type UserType = {
@@ -54,13 +55,6 @@ const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
   }
 };
 
-const plugins: PluginOrDisabledPlugin = [
-  useGenericAuth({
-    resolveUserFn,
-    mode: "protect-all",
-  }),
-];
-
 function retrieveHeadersSafe(context: any) {
   let headers = context.request.headers;
   if (!headers) {
@@ -85,4 +79,10 @@ function retrieveAuthHeaderSafe(headers: any) {
   return authHeader;
 }
 
-export default plugins;
+export default [
+  useGenericAuth({
+    resolveUserFn,
+    mode: "protect-all",
+  }),
+  useAuthorizationDirectives()
+];
