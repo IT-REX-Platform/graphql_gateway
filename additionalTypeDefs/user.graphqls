@@ -15,7 +15,7 @@ extend type CourseMembership {
     course: Course! @resolveTo(
         sourceName: "CourseService",
         sourceTypeName: "Query",
-        sourceFieldName: "coursesById",
+        sourceFieldName: "coursesByIds",
         keyField: "courseId",
         keysArg: "ids"
     )
