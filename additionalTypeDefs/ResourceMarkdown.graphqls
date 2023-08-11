@@ -1,0 +1,13 @@
+extend type ResourceMarkdown {
+    """
+    Resolved MediaRecords referenced in the ResourceMarkdown text in order.
+    A MediaRecord might be NULL if the referenced MediaRecord no longer exists. 
+    """
+    referencedMediaRecords: [MediaRecord]! @resolveTo(
+        sourceName: "MediaService",
+        sourceTypeName: "Query",
+        sourceFieldName: "mediaRecordsByIds",
+        keyField: "referencedMediaRecordIds",
+        keysArg: "ids"
+    )
+}

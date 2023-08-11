@@ -49,6 +49,7 @@ additionalTypeDefs:
   - "./additionalTypeDefs/content.graphqls"
   - "./additionalTypeDefs/rewards.graphqls"
   - "./additionalTypeDefs/user.graphqls"
+  - "./additionalTypeDefs/ResourceMarkdown.graphqls"
 additionalResolvers:
   - "./additionalResolvers/user.ts"
   - "./additionalResolvers/content.ts"
