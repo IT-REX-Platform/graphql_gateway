@@ -6,7 +6,7 @@ extend type ResourceMarkdown {
     referencedMediaRecords: [MediaRecord]! @resolveTo(
         sourceName: "MediaService",
         sourceTypeName: "Query",
-        sourceFieldName: "mediaRecordsByIds",
+        sourceFieldName: "findMediaRecordsByIds",
         keyField: "referencedMediaRecordIds",
         keysArg: "ids"
     )
