@@ -88,5 +88,5 @@ extend type Mutation {
   """
   Creates a new flashcard set assessment and a new, linked flashcard set with the given properties.
   """
-  createFlashcardSetAssessment(assessmentInput: CreateAssessmentInput!, flashcardSetInput: CreateFlashcardSetInput!) # resolved in content.ts
+  createFlashcardSetAssessment(assessmentInput: CreateAssessmentInput!, flashcardSetInput: CreateFlashcardSetInput!): FlashcardSetAssessment # resolved in content.ts
 }
