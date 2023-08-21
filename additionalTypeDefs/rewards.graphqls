@@ -1,19 +1,19 @@
 extend type ScoreboardItem {
-    user: PublicUserInfo @resolveTo(
-        sourceName: "UserService",
-        sourceTypeName: "Query",
-        sourceFieldName: "findPublicUserInfos",
-        keyField: "userId",
-        keysArg: "ids"
-    )
+  user: PublicUserInfo @resolveTo(
+    sourceName: "UserService",
+    sourceTypeName: "Query",
+    sourceFieldName: "findPublicUserInfos",
+    keyField: "userId",
+    keysArg: "ids"
+  )
 }
 
 extend type RewardLogItem {
   associatedContents: [Content]! @resolveTo(
-      sourceName: "ContentService",
-      sourceTypeName: "Query",
-      sourceFieldName: "findContentsByIds",
-      keyField: "associatedContentIds",
-      keysArg: "ids"
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "findContentsByIds",
+    keyField: "associatedContentIds",
+    keysArg: "ids"
   )
 }
