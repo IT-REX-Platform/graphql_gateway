@@ -44,11 +44,18 @@ sources:
         endpoint: "{env.QUIZ_SERVICE_URL}"
         operationHeaders:
           CurrentUser: "{context.currentUserJson}"
+  - name: SkilllevelService
+    handler:
+      graphql:
+        endpoint: "{env.SKILLLEVEL_SERVICE_URL}"
+        operationHeaders:
+          CurrentUser: "{context.currentUserJson}"
 additionalTypeDefs:
   - "./additionalTypeDefs/course.graphqls"
   - "./additionalTypeDefs/content.graphqls"
   - "./additionalTypeDefs/rewards.graphqls"
   - "./additionalTypeDefs/user.graphqls"
+  - "./additionalTypeDefs/skill_level.graphqls"
 additionalResolvers:
   - "./additionalResolvers/user.ts"
   - "./additionalResolvers/content.ts"

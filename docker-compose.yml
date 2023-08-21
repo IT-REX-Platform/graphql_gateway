@@ -15,9 +15,10 @@ services:
       GATEWAY_HOSTNAME: "0.0.0.0"
       GATEWAY_PORT: "8080"
       COURSE_SERVICE_URL: http://host.docker.internal:2001/graphql
-      CONTENT_SERVICE_URL: http://host.docker.internal:4001/graphql
       MEDIA_SERVICE_URL: http://host.docker.internal:3001/graphql
+      CONTENT_SERVICE_URL: http://host.docker.internal:4001/graphql
+      USER_SERVICE_URL: http://host.docker.internal:5001/graphql
       FLASHCARD_SERVICE_URL: http://host.docker.internal:6001/graphql
       REWARD_SERVICE_URL: http://host.docker.internal:7001/graphql
-      USER_SERVICE_URL: http://host.docker.internal:5001/graphql
+      SKILLLEVEL_SERVICE_URL: http://host.docker.internal:8001/graphql
       QUIZ_SERVICE_URL: http://host.docker.internal:9001/graphql
