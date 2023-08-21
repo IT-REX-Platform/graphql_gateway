@@ -1,0 +1,9 @@
+extend type SkillLevelLogItem {
+  associatedContents: [Content]! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "findContentsByIds",
+    keyField: "associatedContentIds",
+    keysArg: "ids"
+  )
+}
