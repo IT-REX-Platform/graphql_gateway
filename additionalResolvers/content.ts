@@ -51,6 +51,30 @@ const resolvers: Resolvers = {
 
                 return content;
             }
+        },
+        createFlashcardSetAssessment: {
+            async resolve(root, _args, context, info) {
+                let content = await context.ContentService.Mutation.createAssessment({
+                    root,
+                    args: {
+                        input: _args.assessmentInput
+                    },
+                    context,
+                    info
+                });
+
+                await context.FlashcardService.Mutation.createFlashcardSet({
+                    root,
+                    args: {
+                        assessmentId: content.id,
+                        input: _args.flashcardSetInput
+                    },
+                    context,
+                    info
+                });
+
+                return content;
+            }
         }
     }
 }

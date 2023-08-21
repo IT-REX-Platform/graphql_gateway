@@ -1,8 +1,8 @@
 extend type ScoreboardItem {
-    user: PublicUserInfo! @resolveTo(
+    user: PublicUserInfo @resolveTo(
         sourceName: "UserService",
         sourceTypeName: "Query",
-        sourceFieldName: "publicUserInfoBatched",
+        sourceFieldName: "findPublicUserInfos",
         keyField: "userId",
         keysArg: "ids"
     )

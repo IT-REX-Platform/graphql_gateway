@@ -81,7 +81,12 @@ extend type Mutation {
   createMediaContentAndLinkRecords(contentInput: CreateMediaContentInput!, mediaRecordIds: [UUID!]!): MediaContent! # resolved in content.ts
 
   """
-  Creates a new quiz assessment and links the given quiz to it.
+  Creates a new quiz assessment and a new, linked quiz with the given properties.
   """
   createQuizAssessment(assessmentInput: CreateAssessmentInput!, quizInput: CreateQuizInput!): QuizAssessment! # resolved in content.ts
+
+  """
+  Creates a new flashcard set assessment and a new, linked flashcard set with the given properties.
+  """
+  createFlashcardSetAssessment(assessmentInput: CreateAssessmentInput!, flashcardSetInput: CreateFlashcardSetInput!): FlashcardSetAssessment # resolved in content.ts
 }

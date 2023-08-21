@@ -1,15 +1,3 @@
-extend type UserInfo {
-    """
-    The course memberships of the user.
-    """
-    courseMemberships: [CourseMembership!]! @resolveTo(
-        sourceName: "UserService",
-        sourceTypeName: "Query",
-        sourceFieldName: "courseMembershipsBatched",
-        keyField: "id",
-        keysArg: "ids"
-    )
-}
 
 extend type CourseMembership {
     course: Course! @resolveTo(
