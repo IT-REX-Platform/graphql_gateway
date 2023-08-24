@@ -88,9 +88,6 @@ const resolvers: Resolvers = {
                     `,
                 });
 
-                console.log("Flashcard Set Created: ");
-                console.log(flashcardSet);
-
                 return content;
             }
         }
