@@ -21,8 +21,13 @@ const resolvers: Resolvers = {
                         contentId: content.id,
                         mediaRecordIds: _args.mediaRecordIds
                     },
-                    context,
-                    info
+                    // we need to define a selection set manually here, otherwise it thinks we don't need any data
+                    // from this mutation and it won't actually be executed
+                    selectionSet: `
+                    {
+                        id
+                    }
+                    `,
                 });
 
                 return content;
@@ -45,8 +50,13 @@ const resolvers: Resolvers = {
                         assessmentId: content.id,
                         input: _args.quizInput
                     },
-                    context,
-                    info
+                    // we need to define a selection set manually here, otherwise it thinks we don't need any data
+                    // from this mutation and it won't actually be executed
+                    selectionSet: `
+                    {
+                        assessmentId
+                    }
+                    `,
                 });
 
                 return content;
@@ -63,15 +73,23 @@ const resolvers: Resolvers = {
                     info
                 });
 
-                await context.FlashcardService.Mutation.createFlashcardSet({
+                let flashcardSet = await context.FlashcardService.Mutation.createFlashcardSet({
                     root,
                     args: {
                         assessmentId: content.id,
                         input: _args.flashcardSetInput
                     },
-                    context,
-                    info
+                    // we need to define a selection set manually here, otherwise it thinks we don't need any data
+                    // from this mutation and it won't actually be executed
+                    selectionSet: `
+                    {
+                        assessmentId
+                    }
+                    `,
                 });
+
+                console.log("Flashcard Set Created: ");
+                console.log(flashcardSet);
 
                 return content;
             }
