@@ -25,10 +25,10 @@ extend type FlashcardSetAssessment {
   """
   The FlashcardSet of the assessment.
   """
-  flashcardSet: FlashcardSet! @resolveTo(
+  flashcardSet: FlashcardSet @resolveTo(
     sourceName: "FlashcardService",
     sourceTypeName: "Query",
-    sourceFieldName: "flashcardSetsByAssessmentIds",
+    sourceFieldName: "findFlashcardSetsByAssessmentIds",
     keyField: "id",
     keysArg: "assessmentIds"
   )
