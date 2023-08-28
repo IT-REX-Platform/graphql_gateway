@@ -34,4 +34,11 @@ extend type Chapter {
     keyField: "id",
     keysArg: "chapterIds"
   )
+  skillLevels: SkillLevels! @resolveTo(
+    sourceName: "SkilllevelService",
+    sourceTypeName: "Query",
+    sourceFieldName: "userSkillLevelsByChapterIds",
+    keyField: "id",
+    keysArg: "chapterIds"
+  )
 }
