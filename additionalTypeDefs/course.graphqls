@@ -17,6 +17,22 @@ extend type Course {
       courseId: "{root.id}"
     }
   )
+  """
+  Suggests content of the course which the current user should
+  learn next (both new content and content to repeat).
+  """
+  suggestions(
+    """
+    The amount of suggestions to generate in total.
+    """
+    amount: Int!,
+    """
+    Only suggestions for these skill types will be generated.
+    If no skill types are given, suggestions for all skill types will be generated,
+    also containing suggestions for media content (which do not have a skill type).
+    """
+    skillTypes: [SkillType!]! = []
+  ): [Suggestion!]! # resolved in course.ts
 }
 
 extend type Chapter {

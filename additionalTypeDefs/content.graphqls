@@ -84,7 +84,6 @@ extend type Mutation {
   Creates a new quiz assessment and a new, linked quiz with the given properties.
   """
   createQuizAssessment(assessmentInput: CreateAssessmentInput!, quizInput: CreateQuizInput!): QuizAssessment! # resolved in content.ts
-
   """
   Creates a new flashcard set assessment and a new, linked flashcard set with the given properties.
   """

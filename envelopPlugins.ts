@@ -67,7 +67,8 @@ function retrieveHeadersSafe(context: any) {
     headers = context.req.headers;
   }
   if (!headers) {
-    console.log("No headers found, context is: ", context);
+    console.log("No headers found.");
+    //console.log("Context is: ", context);
     throw new Error("No headers found");
   }
   return headers;
@@ -79,7 +80,8 @@ function retrieveAuthHeaderSafe(headers: any) {
     authHeader = headers.authorization;
   }
   if (!authHeader) {
-    console.log("No authorization header found, headers are: ", headers);
+    console.log("No authorization header found.");
+    //console.log("Headers are: ", headers);
     throw new Error("No authorization header found");
   }
   return authHeader;

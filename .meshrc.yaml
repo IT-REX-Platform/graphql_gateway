@@ -58,5 +58,6 @@ additionalTypeDefs:
   - "./additionalTypeDefs/skill_level.graphqls"
   - "./additionalTypeDefs/ResourceMarkdown.graphqls"
 additionalResolvers:
+  - "./additionalResolvers/course.ts"
   - "./additionalResolvers/content.ts"
 additionalEnvelopPlugins: "./envelopPlugins"
