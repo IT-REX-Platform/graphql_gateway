@@ -38,6 +38,8 @@ const resolvers: Resolvers = {
                     root,
                     args: {
                         chapterIds: chapters.map(chapter => chapter.id),
+                        amount: _args.amount,
+                        skillTypes: _args.skillTypes
                     },
                     context,
                     info
