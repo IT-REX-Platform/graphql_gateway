@@ -16,7 +16,7 @@ const JWKS = jose.createRemoteJWKSet(
   )
 );
 
-function resolveUserAuthenticated(context) {
+async function resolveUserAuthenticated(context) {
   try {
     // get user information from request headers
     let authHeader = retrieveHeaderSafe(context, "authorization");
@@ -56,7 +56,7 @@ const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
   if(process.env.SKIP_AUTH.toLowerCase() === "true") {
     return resolveUserSkipAuthDangerous(context);
   } else {
-    return resolveUserAuthenticated(context);
+    return await resolveUserAuthenticated(context);
   }
 };
 
