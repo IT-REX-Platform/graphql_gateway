@@ -16,16 +16,10 @@ const JWKS = jose.createRemoteJWKSet(
   )
 );
 
-const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
-  // Here you can implement any custom sync/async code, and use the context built so far in Envelop and the HTTP request
-  // to find the current user.
-  // Common practice is to use a JWT token here, validate it, and use the payload as-is, or fetch the user from an external services.
-  // Make sure to either return `null` or the user object.
-
+function resolveUserAuthenticated(context) {
   try {
     // get user information from request headers
-    const headers = retrieveHeadersSafe(context);
-    let authHeader = retrieveAuthHeaderSafe(headers);
+    let authHeader = retrieveHeaderSafe(context, "authorization");
 
     authHeader = authHeader.replace("Bearer ", "");
 
@@ -52,6 +46,18 @@ const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
 
     return null;
   }
+}
+
+function resolveUserSkipAuthDangerous(context) {
+  return JSON.parse(retrieveHeaderSafe(context, "currentUser"));
+}
+
+const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
+  if(process.env.SKIP_AUTH.toLowerCase() === "true") {
+    return resolveUserSkipAuthDangerous(context);
+  } else {
+    return resolveUserAuthenticated(context);
+  }
 };
 
 const plugins: PluginOrDisabledPlugin = [
@@ -74,15 +80,17 @@ function retrieveHeadersSafe(context: any) {
   return headers;
 }
 
-function retrieveAuthHeaderSafe(headers: any) {
-  let authHeader = headers.get("authorization");
+function retrieveHeaderSafe(context, header: string) {
+  let headers = retrieveHeadersSafe(context);
+
+  let authHeader = headers.get(header);
   if (!authHeader) {
     authHeader = headers.authorization;
   }
   if (!authHeader) {
-    console.log("No authorization header found.");
+    console.log("No header '" + header + "' found.");
     //console.log("Headers are: ", headers);
-    throw new Error("No authorization header found");
+    throw new Error("No header '" + header + "' found");
   }
   return authHeader;
 }
