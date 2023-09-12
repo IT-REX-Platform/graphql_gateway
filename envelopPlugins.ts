@@ -35,6 +35,7 @@ async function resolveUserAuthenticated(context) {
         {}
     );
 
+    // query the user service to find out which courses the user is a member of
     let userInfoRes = await context.UserService.Query.findUserInfos({
       args: {
         ids: [payload.sub]
@@ -49,11 +50,13 @@ async function resolveUserAuthenticated(context) {
       `
     });
 
+    // check that we received a response
     if(userInfoRes.length < 1) {
       console.error("Failed to retrieve user course memberships.");
       return null;
     }
 
+    // query the course service to fetch additional course information for the courses the user is a member of
     let courseInfoRes = await context.CourseService.Query.coursesByIds({
       args: {
         ids: userInfoRes[0].courseMemberships.map((membership) => membership.courseId)
@@ -68,12 +71,14 @@ async function resolveUserAuthenticated(context) {
       `
     });
 
+    // check that we got information for all courses we requested
     let missingCourseCount = userInfoRes[0].courseMemberships.length - courseInfoRes.length;
     if(missingCourseCount > 0) {
       console.error("Failed to retrieve course information for " + missingCourseCount + " course(s).");
       return null;
     }
 
+    // construct the user object we will return
     let user: UserType = {
       id: payload.sub,
       userName: payload.preferred_username,
@@ -92,6 +97,8 @@ async function resolveUserAuthenticated(context) {
       })
     };
 
+    // add json representation of the user object to the context 
+    // (will be injected into the request headers to the services)
     context.currentUserJson = JSON.stringify(user);
 
     return user;
