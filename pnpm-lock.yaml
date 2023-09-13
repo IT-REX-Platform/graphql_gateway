@@ -26,6 +26,9 @@ dependencies:
   '@graphql-mesh/transform-type-merging':
     specifier: ^0.95.3
     version: 0.95.3(@graphql-mesh/types@0.95.3)(@graphql-mesh/utils@0.95.3)(graphql@16.8.0)(tslib@2.6.0)
+  '@whatwg-node/server':
+    specifier: ^0.9.14
+    version: 0.9.14
   graphql:
     specifier: ^16.8.0
     version: 16.8.0
@@ -2001,7 +2004,7 @@ packages:
       '@graphql-mesh/runtime': 0.96.4(@graphql-mesh/cross-helpers@0.4.0)(@graphql-mesh/types@0.95.3)(@graphql-mesh/utils@0.95.3)(@graphql-tools/utils@10.0.3)(graphql@16.8.0)(tslib@2.6.0)
       '@graphql-mesh/types': 0.95.3(@graphql-mesh/store@0.95.3)(@graphql-tools/utils@10.0.3)(graphql@16.8.0)(tslib@2.6.0)
       '@graphql-mesh/utils': 0.95.3(@graphql-mesh/cross-helpers@0.4.0)(@graphql-mesh/types@0.95.3)(@graphql-tools/utils@10.0.3)(graphql@16.8.0)(tslib@2.6.0)
-      '@whatwg-node/server': 0.9.3
+      '@whatwg-node/server': 0.9.14
       graphql: 16.8.0
       graphql-yoga: 4.0.3(graphql@16.8.0)
       tslib: 2.6.0
@@ -2388,7 +2391,7 @@ packages:
     dependencies:
       '@graphql-tools/utils': 10.0.3(graphql@16.8.0)
       '@repeaterjs/repeater': 3.0.4
-      '@whatwg-node/fetch': 0.9.9
+      '@whatwg-node/fetch': 0.9.13
       extract-files: 11.0.0
       graphql: 16.8.0
       meros: 1.3.0(@types/node@20.4.2)
@@ -3296,12 +3299,31 @@ packages:
     engines: {node: '>=16.0.0'}
     dev: false
 
+  /@whatwg-node/fetch@0.9.13:
+    resolution: {integrity: sha512-PPtMwhjtS96XROnSpowCQM85gCUG2m7AXZFw0PZlGbhzx2GK7f2iOXilfgIJ0uSlCuuGbOIzfouISkA7C4FJOw==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      '@whatwg-node/node-fetch': 0.4.18
+      urlpattern-polyfill: 9.0.0
+    dev: false
+
   /@whatwg-node/fetch@0.9.9:
     resolution: {integrity: sha512-OTVoDm039CNyAWSRc2WBimMl/N9J4Fk2le21Xzcf+3OiWPNNSIbMnpWKBUyraPh2d9SAEgoBdQxTfVNihXgiUw==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@whatwg-node/node-fetch': 0.4.8
       urlpattern-polyfill: 9.0.0
+    dev: false
+
+  /@whatwg-node/node-fetch@0.4.18:
+    resolution: {integrity: sha512-zdey6buMKCqDVDq+tMqcjopO75Fb6iLqWo+g6cWwN5kiwctEHtVcbws2lJUFhCbo+TLZeH6bMDRUXEo5bkPtcQ==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      '@whatwg-node/events': 0.1.1
+      busboy: 1.6.0
+      fast-querystring: 1.1.2
+      fast-url-parser: 1.1.3
+      tslib: 2.6.0
     dev: false
 
   /@whatwg-node/node-fetch@0.4.8:
@@ -3315,11 +3337,11 @@ packages:
       tslib: 2.6.0
     dev: false
 
-  /@whatwg-node/server@0.9.3:
-    resolution: {integrity: sha512-fMbndqXpHvj4ZU41Uq5u0hLB895NtIUfwM8/dO2o2xYh1HvUwYS0kM/Lg8g6H9z+3ikIwnU+L1j1MesEmnhG9A==}
+  /@whatwg-node/server@0.9.14:
+    resolution: {integrity: sha512-I8TT0NoCP+xThLBuGlU6dgq5wpExkphNMo2geZwQW0vAmEPtc3MNMZMIYqg5GyNmpv5Nf7fnxb8tVOIHbDvuDA==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@whatwg-node/fetch': 0.9.9
+      '@whatwg-node/fetch': 0.9.13
       tslib: 2.6.0
     dev: false
 
@@ -4643,8 +4665,8 @@ packages:
       '@graphql-tools/utils': 10.0.6(graphql@16.8.0)
       '@graphql-yoga/logger': 1.0.0
       '@graphql-yoga/subscription': 4.0.0
-      '@whatwg-node/fetch': 0.9.9
-      '@whatwg-node/server': 0.9.3
+      '@whatwg-node/fetch': 0.9.13
+      '@whatwg-node/server': 0.9.14
       dset: 3.1.2
       graphql: 16.8.0
       lru-cache: 10.0.0
