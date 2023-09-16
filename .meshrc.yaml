@@ -61,3 +61,8 @@ additionalResolvers:
   - "./additionalResolvers/course.ts"
   - "./additionalResolvers/content.ts"
 additionalEnvelopPlugins: "./envelopPlugins"
+#transforms:
+#  - filterSchemaTransform/:
+#      mode: wrap
+#      filters:
+#        - Mutation.!deleteFlashcardSet

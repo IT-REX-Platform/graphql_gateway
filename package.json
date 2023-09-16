@@ -14,11 +14,11 @@
     "@whatwg-node/server": "^0.9.14",
     "@envelop/core": "^4.0.1",
     "@envelop/generic-auth": "^6.0.0",
-	  "@graphql-mesh/runtime": "^0.96.4",
+    "@graphql-mesh/runtime": "^0.96.4",
     "@graphql-mesh/cli": "^0.87.6",
     "@graphql-mesh/graphql": "^0.95.3",
     "@graphql-mesh/transform-type-merging": "^0.95.3",
-	  "@graphql-mesh/transform-hoist-field": "^0.95.3",
+    "@graphql-mesh/transform-hoist-field": "^0.95.3",
     "graphql": "^16.8.0",
     "jose": "^4.14.4"
   }
