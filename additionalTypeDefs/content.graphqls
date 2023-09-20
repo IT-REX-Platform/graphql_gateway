@@ -34,19 +34,6 @@ extend type FlashcardSetAssessment {
   )
 }
 
-extend type FlashcardSet {
-  """
-  The assessment this FlashcardSet belongs to.
-  """
-  assessment: FlashcardSetAssessment @resolveTo(
-    sourceName: "ContentService",
-    sourceTypeName: "Query",
-    sourceFieldName: "contentsByIds",
-    keyField: "assessmentId",
-    keysArg: "ids"
-  )
-}
-
 extend type QuizAssessment {
   """
   The quiz of the assessment.

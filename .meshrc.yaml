@@ -51,18 +51,19 @@ sources:
         operationHeaders:
           CurrentUser: "{context.currentUserJson}"
 additionalTypeDefs:
-  - "./additionalTypeDefs/course.graphqls"
   - "./additionalTypeDefs/content.graphqls"
+  - "./additionalTypeDefs/course.graphqls"
+  - "./additionalTypeDefs/flashcard.graphqls"
   - "./additionalTypeDefs/rewards.graphqls"
-  - "./additionalTypeDefs/user.graphqls"
   - "./additionalTypeDefs/skill_level.graphqls"
-  - "./additionalTypeDefs/ResourceMarkdown.graphqls"
+  - "./additionalTypeDefs/user.graphqls"
 additionalResolvers:
-  - "./additionalResolvers/course.ts"
   - "./additionalResolvers/content.ts"
+  - "./additionalResolvers/course.ts"
 additionalEnvelopPlugins: "./envelopPlugins"
-#transforms:
-#  - filterSchemaTransform/:
-#      mode: wrap
-#      filters:
-#        - Mutation.!deleteFlashcardSet
+transforms:
+  - filterSchema:
+      mode: bare
+      filters:
+        - Mutation.!_internal* # filter out all mutations that start with _internal
+        - Query.!_internal* # filter out all queries that start with _internal

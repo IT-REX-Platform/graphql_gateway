@@ -19,6 +19,7 @@
     "@graphql-mesh/graphql": "^0.95.3",
     "@graphql-mesh/transform-type-merging": "^0.95.3",
     "@graphql-mesh/transform-hoist-field": "^0.95.3",
+    "@graphql-mesh/transform-filter-schema": "^0.95.3",
     "graphql": "^16.8.0",
     "jose": "^4.14.4"
   }

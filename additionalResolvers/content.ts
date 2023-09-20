@@ -35,18 +35,41 @@ const resolvers: Resolvers = {
         },
         createQuizAssessment: {
             async resolve(root, _args, context, info) {
-                let content = await context.ContentService.Mutation.createAssessment({
+                // find out in which course the chapter this assessment should be created in is
+                let chapters = await context.CourseService.Query.chaptersByIds({
                     root,
                     args: {
+                        ids: [_args.assessmentInput.metadata.chapterId]
+                    },
+                    selectionSet: `
+                    {
+                        course {
+                            id
+                        }
+                    }
+                    `,
+                });
+
+                if (chapters.length !== 1) {
+                    throw new Error("Chapter with given id does not exist.");
+                }
+
+                // create the assessment
+                let content = await context.ContentService.Mutation._internal_createAssessment({
+                    root,
+                    args: {
+                        courseId: chapters[0].course.id,
                         input: _args.assessmentInput
                     },
                     context,
                     info
                 });
 
-                await context.QuizService.Mutation.createQuiz({
+                // create the quiz
+                await context.QuizService.Mutation._internal_createQuiz({
                     root,
                     args: {
+                        courseId: chapters[0].course.id,
                         assessmentId: content.id,
                         input: _args.quizInput
                     },
@@ -64,18 +87,41 @@ const resolvers: Resolvers = {
         },
         createFlashcardSetAssessment: {
             async resolve(root, _args, context, info) {
-                let content = await context.ContentService.Mutation.createAssessment({
+                // find out in which course the chapter this assessment should be created in is
+                let chapters = await context.CourseService.Query.chaptersByIds({
                     root,
                     args: {
+                        ids: [_args.assessmentInput.metadata.chapterId]
+                    },
+                    selectionSet: `
+                    {
+                        course {
+                            id
+                        }
+                    }
+                    `,
+                });
+
+                if (chapters.length !== 1) {
+                    throw new Error("Chapter with given id does not exist.");
+                }
+
+                // create the assessment
+                let content = await context.ContentService.Mutation._internal_createAssessment({
+                    root,
+                    args: {
+                        courseId: chapters[0].course.id,
                         input: _args.assessmentInput
                     },
                     context,
                     info
                 });
 
-                let flashcardSet = await context.FlashcardService.Mutation.createFlashcardSet({
+                // create the flashcard set
+                let flashcardSet = await context.FlashcardService.Mutation._internal_createFlashcardSet({
                     root,
                     args: {
+                        courseId: chapters[0].course.id,
                         assessmentId: content.id,
                         input: _args.flashcardSetInput
                     },
