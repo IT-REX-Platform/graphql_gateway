@@ -64,7 +64,7 @@ extend type Chapter {
   achievableSkillTypes: [SkillType]! @resolveTo(
     sourceName: "ContentService",
     sourceTypeName: "Query",
-    sourceFieldName: "_internal_achievableSkillTypesByChapterIds",
+    sourceFieldName: "_internal_noauth_achievableSkillTypesByChapterIds",
     keyField: "id",
     keysArg: "chapterIds"
   )
