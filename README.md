@@ -4,19 +4,19 @@ A gateway which uses graphql mesh to split a query into smaller queries to the d
 
 ### Relevant for deployment
 
-| Name                   | Description                        | Value in Dev Environment                                                   | Value in Prod Environment                                           |
-|------------------------|------------------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------|
-| GATEWAY_PORT           | PostgreSQL database URL            | 0.0.0.0                                                                    | 0.0.0.0                                                             |
-| GATEWAY_HOSTNAME       | Database username                  | 8080                                                                       | 8080                                                                |
-| DAPR_HTTP_PORT         | Dapr HTTP Port                     | -                                                                          | 3500                                                                |
-| COURSE_SERVICE_URL     | URL for course service GraphQL     | http://host.docker.internal:2001/graphql                                   | http://localhost:3500/v1.0/invoke/course-service/method/graphql     |
-| MEDIA_SERVICE_URL      | URL for media service GraphQL      | http://host.docker.internal:3001/graphql                                   | http://localhost:3500/v1.0/invoke/media-service/method/graphql      |
-| CONTENT_SERVICE_URL    | URL for content service GraphQL    | http://host.docker.internal:4001/graphql                                   | http://localhost:3500/v1.0/invoke/content-service/method/graphql    |
-| USER_SERVICE_URL       | URL for user service GraphQL       | http://host.docker.internal:5001/graphql                                   | http://localhost:3500/v1.0/invoke/user-service/method/graphql       |
-| FLASHCARD_SERVICE_URL  | URL for flashcard service GraphQL  | http://host.docker.internal:6001/graphql                                   | http://localhost:3500/v1.0/invoke/flashcard-service/method/graphql  |
-| REWARD_SERVICE_URL     | URL for reward service GraphQL     | http://host.docker.internal:7001/graphql                                   | http://localhost:3500/v1.0/invoke/reward-service/method/graphql     |
-| SKILLLEVEL_SERVICE_URL | URL for skilllevel service GraphQL | http://host.docker.internal:8001/graphql                                   | http://localhost:3500/v1.0/invoke/skilllevel-service/method/graphql |
-| QUIZ_SERVICE_URL       | URL for quiz service GraphQL       | http://host.docker.internal:9001/graphql                                   | http://localhost:3500/v1.0/invoke/quiz-service/method/graphql       |                                                               |
+| Name                   | Description                        | Value in Dev Environment                 | Value in Prod Environment                                           |
+|------------------------|------------------------------------|------------------------------------------|---------------------------------------------------------------------|
+| GATEWAY_PORT           | Gateway port                       | 8080                                     | 8080                                                                |
+| GATEWAY_HOSTNAME       | Gateway host name                  | 0.0.0.0                                  | 0.0.0.0                                                             |
+| DAPR_HTTP_PORT         | Dapr HTTP Port                     | -                                        | 3500                                                                |
+| COURSE_SERVICE_URL     | URL for course service GraphQL     | http://host.docker.internal:2001/graphql | http://localhost:3500/v1.0/invoke/course-service/method/graphql     |
+| MEDIA_SERVICE_URL      | URL for media service GraphQL      | http://host.docker.internal:3001/graphql | http://localhost:3500/v1.0/invoke/media-service/method/graphql      |
+| CONTENT_SERVICE_URL    | URL for content service GraphQL    | http://host.docker.internal:4001/graphql | http://localhost:3500/v1.0/invoke/content-service/method/graphql    |
+| USER_SERVICE_URL       | URL for user service GraphQL       | http://host.docker.internal:5001/graphql | http://localhost:3500/v1.0/invoke/user-service/method/graphql       |
+| FLASHCARD_SERVICE_URL  | URL for flashcard service GraphQL  | http://host.docker.internal:6001/graphql | http://localhost:3500/v1.0/invoke/flashcard-service/method/graphql  |
+| REWARD_SERVICE_URL     | URL for reward service GraphQL     | http://host.docker.internal:7001/graphql | http://localhost:3500/v1.0/invoke/reward-service/method/graphql     |
+| SKILLLEVEL_SERVICE_URL | URL for skilllevel service GraphQL | http://host.docker.internal:8001/graphql | http://localhost:3500/v1.0/invoke/skilllevel-service/method/graphql |
+| QUIZ_SERVICE_URL       | URL for quiz service GraphQL       | http://host.docker.internal:9001/graphql | http://localhost:3500/v1.0/invoke/quiz-service/method/graphql       |                                                               |
 
 
 ### Other properties
