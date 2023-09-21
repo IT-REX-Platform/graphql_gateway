@@ -57,4 +57,15 @@ extend type Chapter {
     keyField: "id",
     keysArg: "chapterIds"
   )
+  """
+  The skill types which are achievable in this chapter.
+  A skill type is achievable if there is at least one assessment in this chapter with this skill type.
+  """
+  achievableSkillTypes: [SkillType]! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "_internal_achievableSkillTypesByChapterIds",
+    keyField: "id",
+    keysArg: "chapterIds"
+  )
 }
