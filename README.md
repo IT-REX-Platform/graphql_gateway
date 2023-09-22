@@ -17,13 +17,13 @@ A gateway which uses graphql mesh to split a query into smaller queries to the d
 | REWARD_SERVICE_URL     | URL for reward service GraphQL     | http://host.docker.internal:7001/graphql | http://localhost:3500/v1.0/invoke/reward-service/method/graphql     |
 | SKILLLEVEL_SERVICE_URL | URL for skilllevel service GraphQL | http://host.docker.internal:8001/graphql | http://localhost:3500/v1.0/invoke/skilllevel-service/method/graphql |
 | QUIZ_SERVICE_URL       | URL for quiz service GraphQL       | http://host.docker.internal:9001/graphql | http://localhost:3500/v1.0/invoke/quiz-service/method/graphql       |                                                               |
+| JWKS_URL               | URL for jwks keycloak              | http://host.docker.internal:9009/realms/GITS/protocol/openid-connect/certs | http://keycloak/keycloak/realms/GITS/protocol/openid-connect/certs  |
 
 
 ### Other properties
 | Name                   | Description                        | Value in Dev Environment                                                   | Value in Prod Environment                                           |
 |------------------------|------------------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------|
 | DAPR_GRPC_PORT         | Dapr gRPC Port                     | -                                                                          | 50001                                                               |
-| JWKS_URL               | URL for jwks keycloak              | http://host.docker.internal:9009/realms/GITS/protocol/openid-connect/certs | http://keycloak/keycloak/realms/GITS/protocol/openid-connect/certs  |
 
 ## Installation
 
