@@ -51,9 +51,9 @@ const resolvers: Resolvers = {
             }`,
 
             async resolve(root, _args, context, info) {
-                const chapterIds = root.chapters.elements.map(chapter => chapter.id);
+                const chapterIds: string[] = root.chapters.elements.map(chapter => chapter.id);
 
-                const progressInformationObjects = await context.ContentService.Query.progressByChapterIds({
+                const queryParameters = {
                     root,
                     args: {
                         chapterIds: chapterIds
@@ -62,25 +62,50 @@ const resolvers: Resolvers = {
                     {
                         completedContents
                         totalContents
-                    }`
-                });
+                        progress
+                    }`,
+                    context,
+                    info
+                };
 
-                let totalCompletedContents = 0;
-                let totalContents = 0;
+                const progressOfChapters: CompositeProgressInformation[]
+                    = await context.ContentService.Query._internal_noauth_progressByChapterIds(queryParameters);
 
-                progressInformationObjects.forEach(progressInformation => {
-                    totalCompletedContents += progressInformation.completedContents;
-                    totalContents += progressInformation.totalContents;
-                });
-
-                return {
-                    completedContents: totalCompletedContents,
-                    totalContents: totalContents,
-                    progress: totalCompletedContents / (totalContents || 1)
-                }
+                return combineChapterProgressInformation(progressOfChapters);
             }
         }
     }
 };
+
+/**
+ * Sums up the progress information of all chapters of a course.
+ */
+function combineChapterProgressInformation(progressPerChapter: CompositeProgressInformation[]): CompositeProgressInformation {
+    let totalCompletedContents: number = 0;
+    let totalContents: number = 0;
+
+    progressPerChapter.forEach(progressInformation => {
+        totalCompletedContents += progressInformation.completedContents;
+        totalContents += progressInformation.totalContents;
+    });
+
+    let progress = 100.0;
+
+    if (totalContents !== 0) {
+        progress = totalCompletedContents / totalContents * 100.0;
+    }
+
+    return {
+        completedContents: totalCompletedContents,
+        totalContents: totalContents,
+        progress: progress
+    }
+}
+
+type CompositeProgressInformation = {
+    completedContents: number,
+    totalContents: number
+    progress: number
+}
 
 export default resolvers;

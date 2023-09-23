@@ -123,7 +123,6 @@ function retrieveHeadersSafe(context: any) {
   }
   if (!headers) {
     console.log("No headers found.");
-    //console.log("Context is: ", context);
     throw new Error("No headers found");
   }
   return headers;
@@ -138,7 +137,6 @@ function retrieveHeaderSafe(context, header: string) {
   }
   if (!authHeader) {
     console.log("No header '" + header + "' found.");
-    //console.log("Headers are: ", headers);
     throw new Error("No header '" + header + "' found");
   }
   return authHeader;
@@ -150,7 +148,7 @@ function retrieveHeaderSafe(context, header: string) {
  * @returns Object representing the current user or null if authentication failed
  */
 const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
-  if(process.env.SKIP_AUTH !== undefined && process.env.SKIP_AUTH.toLowerCase() === "true") {
+  if (process.env.SKIP_AUTH !== undefined && process.env.SKIP_AUTH.toLowerCase() === "true") {
     return resolveUserSkipAuth(context);
   } else {
     return await resolveUserAuthenticated(context);
