@@ -5,7 +5,7 @@ const resolvers: Resolvers = {
         // combines suggestions from the chapters of the course to a single list of suggestions for the
         // whole course
         suggestions: {
-            // HINT use course service filters instead of manually filtering the chapters
+            // TODO use course service filters instead of manually filtering the chapters
             // manually request some fields from the chapters that we will need to decide if
             // the chapter should be included in the suggestions
             selectionSet: `
@@ -23,9 +23,8 @@ const resolvers: Resolvers = {
 
                 let chapters = root.chapters.elements.filter(chapter => {
                     // if chapter hasn't started yet, don't suggest it
-                    if (Date.parse(chapter.startDate) > currentTime) {
-                        return false;
-                    }
+                    return Date.parse(chapter.startDate) <= currentTime;
+
                 });
 
                 return await context.ContentService.Query.suggestionsByChapterIds({
