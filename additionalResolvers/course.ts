@@ -5,6 +5,7 @@ const resolvers: Resolvers = {
         // combines suggestions from the chapters of the course to a single list of suggestions for the
         // whole course
         suggestions: {
+            // HINT use course service filters instead of manually filtering the chapters
             // manually request some fields from the chapters that we will need to decide if
             // the chapter should be included in the suggestions
             selectionSet: `
@@ -13,7 +14,6 @@ const resolvers: Resolvers = {
                 elements {
                   id
                   startDate
-                  suggestedStartDate
                 }
               }
             }
@@ -23,17 +23,9 @@ const resolvers: Resolvers = {
 
                 let chapters = root.chapters.elements.filter(chapter => {
                     // if chapter hasn't started yet, don't suggest it
-                    if(Date.parse(chapter.startDate) > currentTime) {
+                    if (Date.parse(chapter.startDate) > currentTime) {
                         return false;
                     }
-
-                    // if chapter doesn't have a suggested start date, suggest it
-                    if(chapter.suggestedStartDate === null) {
-                        return true;
-                    }
-
-                    // if chapter has a suggested start date and it's in the past, suggest it
-                    return Date.parse(chapter.suggestedStartDate) < currentTime;
                 });
 
                 return await context.ContentService.Query.suggestionsByChapterIds({
@@ -43,9 +35,49 @@ const resolvers: Resolvers = {
                         amount: _args.amount,
                         skillTypes: _args.skillTypes
                     },
-                    context,
-                    info
+
                 })
+            }
+        },
+
+        userProgress: {
+            selectionSet: `
+            {
+              chapters {
+                elements {
+                  id
+                }
+              }
+            }`,
+
+            async resolve(root, _args, context, info) {
+                const chapterIds = root.chapters.elements.map(chapter => chapter.id);
+
+                const progressInformationObjects = await context.ContentService.Query.progressByChapterIds({
+                    root,
+                    args: {
+                        chapterIds: chapterIds
+                    },
+                    selectionSet: `
+                    {
+                        completedContents
+                        totalContents
+                    }`
+                });
+
+                let totalCompletedContents = 0;
+                let totalContents = 0;
+
+                progressInformationObjects.forEach(progressInformation => {
+                    totalCompletedContents += progressInformation.completedContents;
+                    totalContents += progressInformation.totalContents;
+                });
+
+                return {
+                    completedContents: totalCompletedContents,
+                    totalContents: totalContents,
+                    progress: totalCompletedContents / (totalContents || 1)
+                }
             }
         }
     }

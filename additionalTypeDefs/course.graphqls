@@ -68,4 +68,15 @@ extend type Chapter {
     keyField: "id",
     keysArg: "chapterIds"
   )
+
+  """
+  The progress of the current user in this chapter.
+  """
+  userProgress: CompositeProgressInformation! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "progressByChapterIds",
+    keyField: "id",
+    keysArg: "chapterIds"
+  )
 }
