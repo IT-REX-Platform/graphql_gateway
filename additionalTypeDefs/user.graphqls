@@ -1,9 +1,0 @@
-extend type CourseMembership {
-  course: Course! @resolveTo(
-    sourceName: "CourseService",
-    sourceTypeName: "Query",
-    sourceFieldName: "coursesByIds",
-    keyField: "courseId",
-    keysArg: "ids"
-  )
-}
