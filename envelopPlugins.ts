@@ -36,7 +36,7 @@ async function resolveUserAuthenticated(context) {
     );
 
     // query the course service to find out which courses the user is a member of
-    const userInfoRes = await context.CourseService.Query.courseMembershipsByUserIds({
+    const courseInfoRes = await context.CourseService.Query.courseMembershipsByUserIds({
       args: {
         userIds: [payload.sub]
       },
@@ -55,12 +55,12 @@ async function resolveUserAuthenticated(context) {
     });
 
     // check that we received a response
-    if (userInfoRes.length < 1) {
+    if (courseInfoRes.length < 1) {
       console.error("Failed to retrieve user course memberships.");
       return null;
     }
 
-    const courseMemberships = userInfoRes[0];
+    const courseMemberships = courseInfoRes[0];
 
     // construct the user object we will return
     const user: UserType = {
