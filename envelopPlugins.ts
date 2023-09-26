@@ -29,72 +29,53 @@ async function resolveUserAuthenticated(context) {
 
     authHeader = authHeader.replace("Bearer ", "");
 
-    const {payload, protectedHeader} = await jose.jwtVerify(
+    const {payload} = await jose.jwtVerify(
         authHeader,
         JWKS,
         {}
     );
 
-    // query the user service to find out which courses the user is a member of
-    let userInfoRes = await context.UserService.Query.findUserInfos({
+    // query the course service to find out which courses the user is a member of
+    const courseInfoRes = await context.CourseService.Query.courseMembershipsByUserIds({
       args: {
-        ids: [payload.sub]
+        userIds: [payload.sub]
       },
       selectionSet: `
       {
-        courseMemberships {
-          courseId
-          role
+        courseId
+        role
+        course {
+          id
+          published
+          startDate
+          endDate
         }
       }
       `
     });
 
     // check that we received a response
-    if(userInfoRes.length < 1) {
+    if (courseInfoRes.length < 1) {
       console.error("Failed to retrieve user course memberships.");
       return null;
     }
 
-    console.log(userInfoRes);
-
-    // query the course service to fetch additional course information for the courses the user is a member of
-    let courseInfoRes = await context.CourseService.Query.coursesByIds({
-      args: {
-        ids: userInfoRes[0].courseMemberships.map((membership) => membership.courseId)
-      },
-      selectionSet: `
-      {
-        id
-        published
-        startDate
-        endDate
-      }
-      `
-    });
-
-    // check that we got information for all courses we requested
-    let missingCourseCount = userInfoRes[0].courseMemberships.length - courseInfoRes.length;
-    if(missingCourseCount > 0) {
-      console.error("Failed to retrieve course information for " + missingCourseCount + " course(s).");
-      return null;
-    }
+    const courseMemberships = courseInfoRes[0];
 
     // construct the user object we will return
-    let user: UserType = {
+    const user: UserType = {
       id: payload.sub,
       userName: payload.preferred_username,
       firstName: payload.given_name,
       lastName: payload.family_name,
       authToken: authHeader,
-      courseMemberships: userInfoRes[0].courseMemberships.map((membership) => {
-        let courseInfo = courseInfoRes.find((course) => course.id === membership.courseId);
+      courseMemberships: courseMemberships.map((membership) => {
         return {
           courseId: membership.courseId,
           role: membership.role,
-          published: courseInfo.published,
-          startDate: courseInfo.startDate,
-          endDate: courseInfo.endDate
+          published: membership.course.published,
+          startDate: membership.course.startDate,
+          endDate: membership.course.endDate
         }
       })
     };
@@ -123,7 +104,6 @@ function retrieveHeadersSafe(context: any) {
   }
   if (!headers) {
     console.log("No headers found.");
-    //console.log("Context is: ", context);
     throw new Error("No headers found");
   }
   return headers;
@@ -138,7 +118,6 @@ function retrieveHeaderSafe(context, header: string) {
   }
   if (!authHeader) {
     console.log("No header '" + header + "' found.");
-    //console.log("Headers are: ", headers);
     throw new Error("No header '" + header + "' found");
   }
   return authHeader;
@@ -150,7 +129,7 @@ function retrieveHeaderSafe(context, header: string) {
  * @returns Object representing the current user or null if authentication failed
  */
 const resolveUserFn: ResolveUserFn<UserType> = async (context) => {
-  if(process.env.SKIP_AUTH !== undefined && process.env.SKIP_AUTH.toLowerCase() === "true") {
+  if (process.env.SKIP_AUTH !== undefined && process.env.SKIP_AUTH.toLowerCase() === "true") {
     return resolveUserSkipAuth(context);
   } else {
     return await resolveUserAuthenticated(context);

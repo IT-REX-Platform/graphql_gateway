@@ -33,6 +33,11 @@ extend type Course {
     """
     skillTypes: [SkillType!]! = []
   ): [Suggestion!]! # resolved in course.ts
+
+  """
+  The progress of the current user in this course.
+  """
+  userProgress: CompositeProgressInformation! # resolved in course.ts
 }
 
 extend type Chapter {
@@ -54,6 +59,28 @@ extend type Chapter {
     sourceName: "SkilllevelService",
     sourceTypeName: "Query",
     sourceFieldName: "userSkillLevelsByChapterIds",
+    keyField: "id",
+    keysArg: "chapterIds"
+  )
+  """
+  The skill types which are achievable in this chapter.
+  A skill type is achievable if there is at least one assessment in this chapter with this skill type.
+  """
+  achievableSkillTypes: [SkillType]! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "_internal_noauth_achievableSkillTypesByChapterIds",
+    keyField: "id",
+    keysArg: "chapterIds"
+  )
+
+  """
+  The progress of the current user in this chapter.
+  """
+  userProgress: CompositeProgressInformation! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "_internal_noauth_progressByChapterIds",
     keyField: "id",
     keysArg: "chapterIds"
   )
