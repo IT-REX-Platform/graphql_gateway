@@ -73,8 +73,9 @@ const resolvers: Resolvers = {
 
                 return combineChapterProgressInformation(progressOfChapters);
             }
-        },
-
+        }
+    },
+    Mutation: {
         createSection: {
             async resolve(root, _args, context, info) {
                 let chapters = await context.CourseService.Query.chaptersByIds({
