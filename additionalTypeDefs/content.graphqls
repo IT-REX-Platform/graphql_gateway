@@ -25,7 +25,7 @@ extend type FlashcardSetAssessment {
   """
   The FlashcardSet of the assessment.
   """
-  flashcardSet: FlashcardSet @resolveTo(
+  flashcardSet: FlashcardSet! @resolveTo(
     sourceName: "FlashcardService",
     sourceTypeName: "Query",
     sourceFieldName: "findFlashcardSetsByAssessmentIds",
@@ -39,7 +39,7 @@ extend type QuizAssessment {
   The quiz of the assessment.
   If this is null the system is in an inconsistent state and the assessment should be deleted.
   """
-  quiz: Quiz @resolveTo(
+  quiz: Quiz! @resolveTo(
     sourceName: "QuizService",
     sourceTypeName: "Query",
     sourceFieldName: "findQuizzesByAssessmentIds",
