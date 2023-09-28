@@ -2,7 +2,7 @@ extend type Section {
   chapter: Chapter! @resolveTo(
     sourceName: "CourseService",
     sourceTypeName: "Query",
-    sourceFieldName: "chaptersByIds",
+    sourceFieldName: "_internal_noauth_chaptersByIds",
     keyField: "chapterId",
     keysArg: "ids"
   )

@@ -5,7 +5,7 @@ extend type UserInfo {
   courseMemberships: [CourseMembership!]! @resolveTo(
     sourceName: "CourseService",
     sourceTypeName: "Query",
-    sourceFieldName: "courseMembershipsByUserIds",
+    sourceFieldName: "_internal_noauth_courseMembershipsByUserIds",
     keyField: "id",
     keysArg: "userIds")
 }

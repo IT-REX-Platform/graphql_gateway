@@ -36,7 +36,7 @@ const resolvers: Resolvers = {
         createQuizAssessment: {
             async resolve(root, _args, context, info) {
                 // find out in which course the chapter this assessment should be created in is
-                let chapters = await context.CourseService.Query.chaptersByIds({
+                let chapters = await context.CourseService.Query._internal_noauth_chaptersByIds({
                     root,
                     args: {
                         ids: [_args.assessmentInput.metadata.chapterId]
@@ -88,7 +88,7 @@ const resolvers: Resolvers = {
         createFlashcardSetAssessment: {
             async resolve(root, _args, context, info) {
                 // find out in which course the chapter this assessment should be created in is
-                let chapters = await context.CourseService.Query.chaptersByIds({
+                let chapters = await context.CourseService.Query._internal_noauth_chaptersByIds({
                     root,
                     args: {
                         ids: [_args.assessmentInput.metadata.chapterId]
