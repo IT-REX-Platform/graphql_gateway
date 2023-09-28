@@ -50,9 +50,9 @@ extend type QuizAssessment {
 
 extend type Quiz {
   """
-  The assessment this quiz belongs to.
+  The content this quiz belongs to.
   """
-  assessment: QuizAssessment @resolveTo(
+  content: Content @resolveTo(
     sourceName: "ContentService",
     sourceTypeName: "Query",
     sourceFieldName: "contentsByIds",

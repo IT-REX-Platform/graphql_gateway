@@ -41,6 +41,9 @@ extend type Course {
 }
 
 extend type Chapter {
+  """
+  Contents of this chapter.
+  """
   contents: [Content!]! @resolveTo(
     sourceName: "ContentService",
     sourceTypeName: "Query",
@@ -48,6 +51,21 @@ extend type Chapter {
     keyField: "id",
     keysArg: "chapterIds"
   )
+
+  """
+  Contents of this chapter which are not in any section.
+  """
+  contentsWithNoSection: [Content!]! @resolveTo(
+    sourceName: "ContentService",
+    sourceTypeName: "Query",
+    sourceFieldName: "_internal_noauth_contentWithNoSectionByChapterIds",
+    keyField: "id",
+    keysArg: "chapterIds"
+  )
+
+  """
+  Sections of this chapter.
+  """
   sections: [Section!]! @resolveTo(
     sourceName: "ContentService",
     sourceTypeName: "Query",
@@ -55,6 +73,10 @@ extend type Chapter {
     keyField: "id",
     keysArg: "chapterIds"
   )
+
+  """
+  The skill levels of the current user in this chapter.
+  """
   skillLevels: SkillLevels! @resolveTo(
     sourceName: "SkilllevelService",
     sourceTypeName: "Query",
@@ -62,6 +84,7 @@ extend type Chapter {
     keyField: "id",
     keysArg: "chapterIds"
   )
+
   """
   The skill types which are achievable in this chapter.
   A skill type is achievable if there is at least one assessment in this chapter with this skill type.

@@ -1,8 +1,8 @@
 extend type FlashcardSet {
   """
-  The assessment this FlashcardSet belongs to.
+  The content this FlashcardSet belongs to.
   """
-  assessment: FlashcardSetAssessment @resolveTo(
+  content: Content @resolveTo(
     sourceName: "ContentService",
     sourceTypeName: "Query",
     sourceFieldName: "contentsByIds",
