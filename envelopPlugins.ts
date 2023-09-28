@@ -36,7 +36,7 @@ async function resolveUserAuthenticated(context) {
     );
 
     // query the course service to find out which courses the user is a member of
-    const courseInfoRes = await context.CourseService.Query._internal_noauth_courseMembershipsByUserIds({
+    const courseInfoRes = await context.CourseService.Query.courseMembershipsByUserIds({
       args: {
         userIds: [payload.sub]
       },
