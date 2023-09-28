@@ -54,11 +54,20 @@ const resolvers: Resolvers = {
                     throw new Error("Chapter with given id does not exist.");
                 }
 
+                let courseId = chapters[0].course.id;
+
+                // check that the user is an admin in the course the assessment should be created in
+                if (!context.user.courseMemberships.some((membership) => {
+                    return membership.courseId === courseId && membership.role === "ADMINISTRATOR";
+                })) {
+                    throw new Error("User is not enrolled and/or an admin in the course the assessment should be created in.");
+                }
+
                 // create the assessment
                 let content = await context.ContentService.Mutation._internal_createAssessment({
                     root,
                     args: {
-                        courseId: chapters[0].course.id,
+                        courseId: courseId,
                         input: _args.assessmentInput
                     },
                     context,
@@ -66,10 +75,10 @@ const resolvers: Resolvers = {
                 });
 
                 // create the quiz
-                await context.QuizService.Mutation._internal_createQuiz({
+                await context.QuizService.Mutation._internal_noauth_createQuiz({
                     root,
                     args: {
-                        courseId: chapters[0].course.id,
+                        courseId: courseId,
                         assessmentId: content.id,
                         input: _args.quizInput
                     },
@@ -106,11 +115,20 @@ const resolvers: Resolvers = {
                     throw new Error("Chapter with given id does not exist.");
                 }
 
+                let courseId = chapters[0].course.id;
+
+                // check that the user is an admin in the course the assessment should be created in
+                if (!context.user.courseMemberships.some((membership) => {
+                    return membership.courseId === courseId && membership.role === "ADMINISTRATOR";
+                })) {
+                    throw new Error("User is not enrolled and/or an admin in the course the assessment should be created in.");
+                }
+
                 // create the assessment
                 let content = await context.ContentService.Mutation._internal_createAssessment({
                     root,
                     args: {
-                        courseId: chapters[0].course.id,
+                        courseId: courseId,
                         input: _args.assessmentInput
                     },
                     context,
@@ -118,10 +136,10 @@ const resolvers: Resolvers = {
                 });
 
                 // create the flashcard set
-                let flashcardSet = await context.FlashcardService.Mutation._internal_createFlashcardSet({
+                let flashcardSet = await context.FlashcardService.Mutation._internal_noauth_createFlashcardSet({
                     root,
                     args: {
-                        courseId: chapters[0].course.id,
+                        courseId: courseId,
                         assessmentId: content.id,
                         input: _args.flashcardSetInput
                     },

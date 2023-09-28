@@ -73,6 +73,40 @@ const resolvers: Resolvers = {
 
                 return combineChapterProgressInformation(progressOfChapters);
             }
+        },
+
+        createSection: {
+            async resolve(root, _args, context, info) {
+                let chapters = await context.CourseService.Query.chaptersByIds({
+                    root,
+                    args: {
+                        ids: [_args.sectionInput.chapterId]
+                    },
+                    selectionSet: `
+                    {
+                        course {
+                            id
+                        }
+                    }
+                    `,
+                });
+
+                if (chapters.length !== 1) {
+                    throw new Error("Chapter with given id does not exist.");
+                }
+
+                let courseId = chapters[0].course.id;
+
+                return await context.ContentService.Mutation._internal_createSection({
+                    root,
+                    args: {
+                        courseId: courseId,
+                        input: _args.sectionInput
+                    },
+                    context,
+                    info
+                });
+            }
         }
     }
 };

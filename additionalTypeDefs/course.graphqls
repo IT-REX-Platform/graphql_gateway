@@ -69,7 +69,7 @@ extend type Chapter {
   sections: [Section!]! @resolveTo(
     sourceName: "ContentService",
     sourceTypeName: "Query",
-    sourceFieldName: "sectionsByChapterIds",
+    sourceFieldName: "_internal_noauth_sectionsByChapterIds",
     keyField: "id",
     keysArg: "chapterIds"
   )
@@ -107,4 +107,11 @@ extend type Chapter {
     keyField: "id",
     keysArg: "chapterIds"
   )
+}
+
+extend type Mutation {
+  """
+  Creates a new section in a chapter.
+  """
+  createSection(input: CreateSectionInput!): Section! # resolved in course.ts
 }
