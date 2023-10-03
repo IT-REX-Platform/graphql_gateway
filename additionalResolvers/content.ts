@@ -15,7 +15,7 @@ const resolvers: Resolvers = {
                 });
 
                 // link the created content to the passed media records
-                await context.MediaService.Mutation.linkMediaRecordsWithContent({
+                await context.MediaService.Mutation.setLinkedMediaRecordsForContent({
                     root,
                     args: {
                         contentId: content.id,
