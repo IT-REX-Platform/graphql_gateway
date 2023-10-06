@@ -14,6 +14,7 @@ type UserType = {
   lastName: string;
   authToken: string;
   courseMemberships: UserCourseMembership[];
+  realmRoles: String[];
 };
 
 const JWKS = jose.createRemoteJWKSet(
@@ -77,7 +78,8 @@ async function resolveUserAuthenticated(context) {
           startDate: membership.course.startDate,
           endDate: membership.course.endDate
         }
-      })
+      }),
+      realmRoles: payload.realm_access.roles
     };
 
     // add json representation of the user object to the context 
