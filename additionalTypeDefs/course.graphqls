@@ -80,7 +80,7 @@ extend type Chapter {
   skillLevels: SkillLevels! @resolveTo(
     sourceName: "SkilllevelService",
     sourceTypeName: "Query",
-    sourceFieldName: "userSkillLevelsByChapterIds",
+    sourceFieldName: "_internal_noauth_userSkillLevelsByChapterIds",
     keyField: "id",
     keysArg: "chapterIds"
   )
