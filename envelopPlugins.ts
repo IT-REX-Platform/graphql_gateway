@@ -14,7 +14,7 @@ type UserType = {
   lastName: string;
   authToken: string;
   courseMemberships: UserCourseMembership[];
-  realmRoles: String[];
+  realmRoles: string[];
 };
 
 const JWKS = jose.createRemoteJWKSet(
@@ -37,9 +37,9 @@ async function resolveUserAuthenticated(context) {
     );
 
     // query the course service to find out which courses the user is a member of
-    const courseInfoRes = await context.CourseService.Query._internal_noauth_courseMembershipsByUserIds({
+    const courseMemberships = await context.CourseService.Query._internal_noauth_courseMembershipsByUserId({
       args: {
-        userIds: [payload.sub]
+        userId: payload.sub
       },
       selectionSet: `
       {
@@ -56,12 +56,10 @@ async function resolveUserAuthenticated(context) {
     });
 
     // check that we received a response
-    if (courseInfoRes.length < 1) {
+    if (courseMemberships == null) {
       console.error("Failed to retrieve user course memberships.");
       return null;
     }
-
-    const courseMemberships = courseInfoRes[0];
 
     // construct the user object we will return
     const user: UserType = {

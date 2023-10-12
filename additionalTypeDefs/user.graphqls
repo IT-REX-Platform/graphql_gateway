@@ -5,9 +5,33 @@ extend type UserInfo {
   courseMemberships: [CourseMembership!]! @resolveTo(
     sourceName: "CourseService",
     sourceTypeName: "Query",
-    sourceFieldName: "_internal_noauth_courseMembershipsByUserIds",
-    keyField: "id",
-    keysArg: "userIds"
+    sourceFieldName: "_internal_noauth_courseMembershipsByUserId",
+    requiredSelectionSet: "{ id }",
+    sourceArgs: {
+      userId: "{root.id}"
+    }
+  )
+
+  availableCourseMemberships: [CourseMembership!]! @resolveTo(
+    sourceName: "CourseService",
+    sourceTypeName: "Query",
+    sourceFieldName: "_internal_noauth_courseMembershipsByUserId",
+    requiredSelectionSet: "{ id }",
+    sourceArgs: {
+      userId: "{root.id}",
+      availabilityFilter: "true"
+    }
+  )
+
+  unavailableCourseMemberships: [CourseMembership!]! @resolveTo(
+    sourceName: "CourseService",
+    sourceTypeName: "Query",
+    sourceFieldName: "_internal_noauth_courseMembershipsByUserId",
+    requiredSelectionSet: "{ id }",
+    sourceArgs: {
+      userId: "{root.id}",
+      availabilityFilter: "false"
+    }
   )
 
   """
